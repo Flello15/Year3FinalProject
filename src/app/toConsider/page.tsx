@@ -23,6 +23,9 @@ export default function Home() {
             <li>Tailwind: Grain a basic understanding of Tailwind. Based on current observation, styling can be embedded directly in the classname.\n
                 Standard CSS is still available as an alternative, and may be preferable
             </li>
+            <li> Outlook only approach. Use Microsoft login authentication, then only read/update via Graph API.\n
+              Removes SQL requirement, and passes login to a third party (if possible). Potential approch that requires further thought
+            </li>
         </ul>
       </main>
     </div>
