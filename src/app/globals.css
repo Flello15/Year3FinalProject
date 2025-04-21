@@ -24,3 +24,39 @@ body {
 li{
   list-style-type: disc;
 }
+
+.ItemBox
+{
+  background-color: #171717;
+  color: #ffffff;
+  border-width: 3px;
+  border-color: purple;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.ItemBoxBuffer
+{
+  background-color: #171717;
+  color: #ffffff;
+  border-width: 3px;
+  border-color: purple;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  opacity: 0.3;
+}
+.CalDate
+{
+  font-size: 1.5em;
+}
+#DateContainer{
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: inline;
+  float: left;
+  width: 1500px;
+  height: 500px;
+}

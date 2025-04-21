@@ -1,12 +1,17 @@
+import MonthView from "@/components/mainPage/monthView";
+import WeekView from "@/components/mainPage/weekView";
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div>
+      <MonthView month={3} year={2025}/>
+      <br/>
+      <main>
         <p>This is the root page. It is the first displayed on load, and is contained within the layout.\n
           When signed in, this should show the calendar. If not signed in, either an "advert" screen, or just redirect.\n
           Note for sign in, needs a different layout, as this will contain the navbars
         </p>
       </main>
+      <WeekView dayInWeek={new Date(2025,3,30)}/>
     </div>
   );
 }
