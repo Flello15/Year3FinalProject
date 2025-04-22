@@ -2,6 +2,7 @@
   "name": "daca",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -9,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mysql": "^2.18.1",
     "mysql2": "^3.12.0",
     "next": "15.1.4",
     "react": "^19.0.0",
