@@ -1,8 +1,10 @@
+import LoginPanel from "@/components/loginPage/loginPanel";
 import MonthView from "@/components/mainPage/monthView";
 import WeekView from "@/components/mainPage/weekView";
 export default function Home() {
   return (
     <div>
+      <LoginPanel />
       <MonthView month={3} year={2025}/>
       <br/>
       <main>

@@ -9,7 +9,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #171711;
     --foreground: #ededed;
   }
 
@@ -59,4 +59,39 @@ li{
   float: left;
   width: 1500px;
   height: 500px;
+}
+
+#loginPanel{
+  position: absolute;
+  top: 4em;
+  left: 10em;
+  width: 15em;
+  height: 15em;
+  background-color: black;
+  text-align: center;
+  font-size: 2em;
+  border-radius: 0.5em;
+}
+
+.loginInput
+{
+  text-align: center;
+  color: black;
+  margin: 0.5em;
+}
+
+#loginSubmit
+{
+  margin: 1em;
+  background-color: #008000;
+  color: white;
+  border-radius: 0.5em;
+  width: 3em;
+}
+
+#loginSubmit:hover
+{
+  cursor: pointer;
+  background-color: #006000;
+  color: #dddddd;
 }

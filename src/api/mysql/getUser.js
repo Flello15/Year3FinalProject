@@ -46,5 +46,5 @@ export default async function getUser(userID)
 }
 
 //Example use. Don't forget await
-var temp = await getUser("testname");
-console.log(temp.userID);
+//var temp = await getUser("testname");
+//console.log(temp.userID);
