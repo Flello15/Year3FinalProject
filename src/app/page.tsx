@@ -1,4 +1,4 @@
-import LoginPanel from "@/components/loginPage/loginPanel";
+import LoginPanel from "@/components/login/loginPanel";
 import MonthView from "@/components/mainPage/monthView";
 import WeekView from "@/components/mainPage/weekView";
 export default function Home() {

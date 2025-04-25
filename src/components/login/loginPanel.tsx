@@ -21,6 +21,7 @@ export default function LoginPanel()
         if(res != null)//If username returned, add a cookie and log in the user
         {
             cookies.set("username",name);
+            window.location.reload();
         } 
         //Clear the form
         setName("");
