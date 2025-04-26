@@ -1,7 +1,18 @@
 import LoginPanel from "@/components/login/loginPanel";
 import MonthView from "@/components/mainPage/monthView";
 import WeekView from "@/components/mainPage/weekView";
-export default function Home() {
+import getUserEvents from "@/components/eventManager/getUserEvents";
+import {calEvent} from "@/components/eventManager/eventType";
+import { cookies } from 'next/headers'
+
+export default async function Home() {
+  const cookieStore = await cookies();
+  const userID = cookieStore.get("username")?.value;
+  var calEvents:calEvent[];
+  if(userID != undefined)
+  {
+    calEvents = await getUserEvents(userID);
+  }
   return (
     <div>
       <LoginPanel />

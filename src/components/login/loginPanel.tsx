@@ -4,7 +4,6 @@ import Cookies from "universal-cookie";
 import loginUser from "./loginUser";
 export default function LoginPanel()
 {
-
     const [name, setName] = useState("");
     const [pass, setPass] = useState("");
     //To prevent hydration error
