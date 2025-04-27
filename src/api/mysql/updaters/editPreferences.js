@@ -1,10 +1,7 @@
-/**
- * Get user from a given ID
- */
-import {login} from '../mysql/SQLLogin.js';
+import {login} from '../../mysql/SQLLogin';
 import mysql from "mysql";
 //Function to return full array
-async function getUserAr(userID)
+export default async function editPreferences(userID,startPref,endPref,dayPref,lengthPref,breakPref,daySessions)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -17,7 +14,9 @@ async function getUserAr(userID)
         console.log("Connected!");
     });
 
-    var sql = "SELECT * FROM calendar.Users WHERE userID=\'"+userID+"\';";
+    var sql = "UPDATE calendar.users SET "+
+    "startPref=\'"+startPref+"\',endPref=\'"+endPref+"\',dayPref="+dayPref+",lengthPref=\'"+lengthPref+"\',breakPref=\'"+breakPref+"\'"+
+    ",daySessions="+daySessions+" WHERE userID = \'"+userID+"\';";
 
     var res = await new Promise((resolve) =>
          {
@@ -38,13 +37,5 @@ async function getUserAr(userID)
     return res;
 }
 
-//Since only first element is relevant, function for only first value for convenience
-export default async function getUser(userID)
-{
-    var res = (await getUserAr(userID));
-    return res[0];
-}
-
-//Example use. Don't forget await
-//var temp = await getUser("testname");
-//console.log(temp.userID);
+//var temp = await editPreferences("testname","10:00:00","22:00:00",127,"1:00:00","00:30:00","3");
+//console.log(temp);

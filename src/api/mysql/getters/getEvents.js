@@ -1,7 +1,7 @@
-import {login} from '../mysql/SQLLogin.js';
+import {login} from '../../mysql/SQLLogin';
 import mysql from "mysql";
 //Function to return full array
-export default async function getCalendars(userID)
+export default async function getEvents(calendarID)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -14,7 +14,8 @@ export default async function getCalendars(userID)
         console.log("Connected!");
     });
 
-    var sql = "SELECT * FROM calendar.calendars WHERE user=\'"+userID+"\';";
+    var sql = "SELECT * FROM calendar.events WHERE calendarID=\'"+calendarID+"\'"
+    +" ORDER BY startTime DESC;";
 
     var res = await new Promise((resolve) =>
          {
@@ -35,5 +36,5 @@ export default async function getCalendars(userID)
     return res;
 }
 
-//var temp = await getCalendars("testname");
-//console.log(temp[0].permissions);
+//var temp = await getEvents(1);
+//console.log(temp[0]);

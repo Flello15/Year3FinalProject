@@ -1,7 +1,7 @@
-import {login} from '../mysql/SQLLogin.js';
+import {login} from '../../mysql/SQLLogin';
 import mysql from "mysql";
 //Function to return full array
-export default async function getEvents(calendarID)
+export default async function addEvent(calendarID,eventType,startTime,duration,title,description,repeatLength,parentID)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -14,7 +14,8 @@ export default async function getEvents(calendarID)
         console.log("Connected!");
     });
 
-    var sql = "SELECT * FROM calendar.events WHERE calendarID=\'"+calendarID+"\';";
+    var sql = "INSERT INTO calendar.events (calendarID,eventType,startTime,duration,title,description,repeatLength,parentID)"+
+    "VALUES ("+calendarID+","+eventType+",\'"+startTime+"\',\'"+duration+"\',\'"+title+"\',\'"+description+"\',"+repeatLength+","+parentID+");";
 
     var res = await new Promise((resolve) =>
          {
@@ -35,5 +36,5 @@ export default async function getEvents(calendarID)
     return res;
 }
 
-//var temp = await getEvents(1);
-//console.log(temp[0].duration);
+//var temp = await addEvent(1,0,"2025-04-27 12:00:00","1:00:00","testTitleNew","Written by SQL!",0,null);
+//console.log(temp);

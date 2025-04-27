@@ -1,5 +1,5 @@
 'use server';
-import getUser from "@/api/mysql/getUser";
+import getUser from "@/api/mysql/getters/getUser";
 
 export default async function loginUser(username: String, pass: String)
 {

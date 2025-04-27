@@ -1,6 +1,6 @@
 //Handles database calls for all calendars and events related to users
-import getCalendars from "@/api/mysql/getCalendars";
-import getEvents from "@/api/mysql/getEvents";
+import getCalendars from "@/api/mysql/getters/getCalendars";
+import getEvents from "@/api/mysql/getters/getEvents";
 import { Calendar, calEvent } from "./eventType";
 
 export default async function getUserEvents(userID:String)
