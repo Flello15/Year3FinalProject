@@ -1,4 +1,4 @@
-import {login} from '../../mysql/SQLLogin';
+import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
 export default async function addEvent(calendarID,eventType,startTime,duration,title,description,repeatLength,parentID)
@@ -36,5 +36,7 @@ export default async function addEvent(calendarID,eventType,startTime,duration,t
     return res;
 }
 
-//var temp = await addEvent(1,0,"2025-04-27 12:00:00","1:00:00","testTitleNew","Written by SQL!",0,null);
-//console.log(temp);
+//const date = new Date();
+//const SQLDate = date.toISOString().slice(0, 19).replace('T', ' ');
+//var temp = await addEvent(1,0,SQLDate,"1:00:00","testTitleNew","Written by SQL!",0,null);
+//console.log(temp.insertId);

@@ -1,7 +1,7 @@
 /**
  * Get user from a given ID
  */
-import {login} from '../../mysql/SQLLogin';
+import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
 async function getUserAr(userID)

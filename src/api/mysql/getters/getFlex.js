@@ -1,4 +1,4 @@
-import {login} from '../../mysql/SQLLogin';
+import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
 export default async function getFlex(userID)
