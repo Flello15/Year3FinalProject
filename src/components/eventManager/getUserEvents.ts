@@ -1,4 +1,5 @@
 //Handles database calls for all calendars and events related to users
+'use server'
 import getCalendars from "@/api/mysql/getters/getCalendars";
 import getEvents from "@/api/mysql/getters/getEvents";
 import { Calendar, calEvent } from "./eventType";
@@ -35,7 +36,7 @@ async function getUserCalendars(userID:String)
 
 function convertCalendar(calJSON: any)
 {
-    //Convert the JSON responce into a calendar type
+    //Convert the JSON response into a calendar type
     const cal:Calendar = 
     {
         calendarID: calJSON.calendarID,
@@ -64,4 +65,6 @@ function convertEvent(eventJSON: any, calendar:Calendar)
 }
 
 //var events = await getUserEvents("testname")
-//console.log(events[0].startTime.getDate());
+//var newEvents:calEvent[] = JSON.parse(JSON.stringify(events));
+//console.log(typeof(newEvents[0].eventID));
+//console.log(events[0].startTime);

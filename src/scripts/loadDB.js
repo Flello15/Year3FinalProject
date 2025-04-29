@@ -1,3 +1,0 @@
-/**
- * Load the required database
- */

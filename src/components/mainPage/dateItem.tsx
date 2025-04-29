@@ -1,17 +1,32 @@
+import { Calendar, calEvent } from "../eventManager/eventType";
+import EventItem from "./eventItem";
+
 interface dateProps{
     width:number;
     height:number;
     date:Date;
+    calendars:Calendar[];
+    calEvents:calEvent[];
     buffer:boolean;
 }
 
-export default function DateItem({width,height,date,buffer}:dateProps)
+export default function DateItem({width,height,date,calendars,calEvents,buffer}:dateProps)
 {
     var widthString = width.toFixed(0) + "%";
     var heightString = height.toFixed(0) + "%";
     var day = getDayName(date.getDay());
     var suffix = getDateEnd(date.getDate());
-    const styleSize = {minWidth:widthString, minHeight:heightString};
+    const styleSize = {width:widthString, height:heightString};
+    const dayEvents = getDayEvents(calendars,calEvents,date);
+    const eventItems = [];
+    for(let i = 0; i < dayEvents.length; i++)
+    {
+        const cal= getCalendarByID(dayEvents[i],calendars);
+        if(cal != null)
+        {
+            eventItems.push(<EventItem event={dayEvents[i]} calendar={cal} key={i}/>);
+        }
+    }
     if(buffer==true)
     {
         return(<div className="ItemBoxBuffer" style={styleSize}>
@@ -19,17 +34,18 @@ export default function DateItem({width,height,date,buffer}:dateProps)
         </div>);
     }
     return(<div className="ItemBox" style={styleSize}>
-        <h1 className="CalDate">{day} {date.getDate()}{suffix} </h1>
+        <h1 className="CalDate">{day} {date.getDate()}{suffix}{eventItems}</h1>
     </div>);
 }
 
-//Convert the day value into the  shortened name
+
+//Convert the day value into the shortened name
 function getDayName(day:number)
 {
     switch(day)
     {
         case 0:
-            return "Sat";
+            return "Sun";
         case 1:
             return "Mon";
         case 2:
@@ -65,4 +81,47 @@ function getDateEnd(date:number)
             return "th";
     }
 
+}
+
+function getDayEvents(calendars:Calendar[], calEvents:calEvent[], date:Date)
+{
+    const eventArr:calEvent[] = [];
+    for(let i = 0; i < calEvents.length; i++)
+    {
+        if(sameDay(calEvents[i].startTime,date))
+        {
+            if(getCalendarByID(calEvents[i],calendars)?.visible)
+            {
+                eventArr.push(calEvents[i]);
+            }
+        }
+    }
+    return eventArr;
+}
+
+function getCalendarID(event:calEvent, calendars:Calendar[])
+{
+    for(let i = 0; i< calendars.length; i++)
+    {
+        if(calendars[i].calendarID == event.calendarID)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+function getCalendarByID(event:calEvent, calendars:Calendar[])
+{
+    const calID = getCalendarID(event,calendars);
+    if(calID != -1)
+    {
+        return calendars[calID];
+    }
+    return undefined;
+}
+
+function sameDay(date1:Date, date2:Date)
+{
+    return((date1.getDate() == date2.getDate()) && (date1.getMonth() == date2.getMonth())
+     && (date1.getFullYear() == date2.getFullYear()));
 }

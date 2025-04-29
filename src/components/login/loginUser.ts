@@ -1,7 +1,9 @@
 'use server';
 import getUser from "@/api/mysql/getters/getUser";
-
-export default async function loginUser(username: String, pass: String)
+import { cookies } from 'next/headers'
+import getUserEvents from "../eventManager/getUserEvents";
+import getUserCalendars from "../eventManager/getUserCalendars";
+export default async function loginUser(username: string, pass: string)
 {
     let userInfo= await getUser(username);
     if(userInfo == undefined)
@@ -18,8 +20,14 @@ export default async function loginUser(username: String, pass: String)
         let hashPass = hmac.digest("hex");
         if(hashPass == userInfo.password)
         {
-            //Handle login
-            //document.cookie = "username="+userInfo.userID+";"
+            //Set up the required cookites
+            const cookieStore = await cookies();
+            //get user preferences, calendars and events
+            const userEvents = (await getUserEvents(username));
+            const calendars = await getUserCalendars(username);
+            cookieStore.set({name:"username",value:username});
+            cookieStore.set({name:"events",value:JSON.stringify(userEvents)});
+            cookieStore.set({name:"calendars",value:JSON.stringify(calendars)});
             return username;//Return the valid username
         }
         else

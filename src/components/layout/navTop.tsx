@@ -14,6 +14,8 @@ export default function NavTop()
     function logout()
     {
         cookies.remove("username");
+        cookies.remove("events");
+        cookies.remove("calendars");
         window.location.reload();
     }
     if(cookies.get("username") == undefined) logoutButton = <></>;

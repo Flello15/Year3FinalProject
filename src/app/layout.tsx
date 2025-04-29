@@ -31,16 +31,7 @@ export default function RootLayout({
         <NavTop />
         <div id ="navSide"></div>
         <div id="layoutBody">
-          <Link href="/"> Main page </Link><br />
-          <Link href="/page2">Page2</Link> <br />
-          <Link href="/toConsider">List of considerations</Link>
-
           {children}
-          <p>The root layout defines the basic layout of the first page\n
-            Children appears to be a parameter passed in, containing page.tsx\n
-            Can be used to maintain data across pages\n
-            For current context: Load in calendar data, so maintained while navigating
-          </p>
         </div>
       </body>
     </html>

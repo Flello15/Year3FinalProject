@@ -14,12 +14,12 @@ export default function LoginPanel()
     }, [])
     const cookies = new Cookies(null, { path: "/" });
     //cookies.remove in order to delete a cookie
+    
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         let res = await loginUser(name,pass);
         if(res != null)//If username returned, add a cookie and log in the user
         {
-            cookies.set("username",name);
             window.location.reload();
         } 
         //Clear the form
