@@ -1,18 +1,25 @@
+'use client'
 import LoginPanel from "@/components/login/loginPanel";
 import MonthView from "@/components/mainPage/monthView";
-import WeekView from "@/components/mainPage/weekView";
-import { cookies } from 'next/headers'
+import Cookies from "universal-cookie";
+import { useState } from "react";
+import { Calendar } from "@/components/eventManager/eventType";
+import NavSide from "@/components/layout/navSide";
 
-export default async function Home() {
-  const cookieStore = await cookies();
-  const userID = cookieStore.get("username")?.value;
+export default function Home() {
+  //State and function to handle calendar visibility
+  const[visTog,setVisTog] = useState(false);
 
-  return (
-    <div>
+  function toggleVis()
+  {
+    setVisTog(!visTog);
+  }
+  return (<>
+    <NavSide toggleVis={toggleVis}/>
+    <div id="layoutBody">
       <LoginPanel />
-      {/*<WeekView userID={userID} dayInWeek={new Date()}/>*/}
-      {<MonthView />}
-      <br/>
+      <MonthView />
     </div>
+    </>
   );
 }

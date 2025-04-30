@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Calendar, calEvent } from "../eventManager/eventType";
+import EventViewPanel from "../layout/eventViewPanel";
 
 interface eiProps
 {
@@ -9,6 +10,14 @@ interface eiProps
 //Go through all events in the provided list, for now just output
 export default function EventItem({event,calendar}:eiProps)
 {
+    //Set whether the event details should be displayed
+    const [activeDetails, setActiveDetails] = useState(false);
+
+    //functions to open and close the page
+    function togglePage()
+    {
+        setActiveDetails(!activeDetails);
+    }
     //To prevent hydration error
     const [isClient, setIsClient] = useState(false)
      
@@ -16,7 +25,8 @@ export default function EventItem({event,calendar}:eiProps)
         setIsClient(true)
     }, [])
     const time = createTime(event.startTime);
-    return(<>{isClient?<div className="eventItem">{time}- {event.name} ({calendar.name})</div>:<></>}</>);
+    return(<>{isClient?<button onClick={togglePage} className="eventItem">{time}- {event.name} ({calendar.name})</button>:<></>}
+    {activeDetails?<EventViewPanel event={event} calendar={calendar} pageExit={togglePage}/>:<></>}</>);
 }
 function createTime(date:Date)
 {

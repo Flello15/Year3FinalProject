@@ -11,6 +11,7 @@ import Cookies from "universal-cookie";
 export default function MonthView()
 {
     const cookies = new Cookies(null, { path: "/" });
+    const monthNames=["Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"];
     const[month,setMonth] = useState(new Date().getMonth());
     const[year,setYear] = useState(new Date().getFullYear());
     const daysInMonth = getDaysInMonth(month,year); //Get number of days in the month
@@ -44,9 +45,9 @@ export default function MonthView()
         }
 
     }
-    return <>
-        <button onClick={incrementMonth}>TestInc</button>
-        <button onClick={decrementMonth}>TestDec</button>
+    return <><span id="monthHeading">{monthNames[Math.abs(getMonthIndex(month))]} {year + (Math.floor(month/12))}</span>
+        <button className="monthButton" onClick={decrementMonth}>&lt;</button>
+        <button className="monthButton" onClick={incrementMonth}>&gt;</button>
         <div id="calView">{items}</div>
     </>;
 }
@@ -60,6 +61,15 @@ function getStartDay(month:number, year:number)
 {
     return new Date(year,month,1).getDay();
 }
+
+function getMonthIndex(month:number)
+{
+    if(month < 0)
+    {
+        return (month+12)%12;
+    }
+    return month%12;
+}
 //Convert dates back from strings
 function repairDates(calEvents:calEvent[])
 {
@@ -69,3 +79,4 @@ function repairDates(calEvents:calEvent[])
     }
     return calEvents;
 }
+

@@ -1,7 +1,8 @@
+'use server'
 import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
-export default async function deleteCalendar(calID, userID)
+export default async function addCalendar(calID, userID,permissions,calName)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -14,12 +15,16 @@ export default async function deleteCalendar(calID, userID)
         console.log("Connected!");
     });
 
-    var sql = "DELETE FROM calendar.calendars where calendarID=\'"+calID+"\' AND user=\'"+userID+"\';";
+    var sql = "INSERT INTO calendar.calendars (calendarID,user,permissions,calname) VALUES ("+calID+",\'"+userID+"\',"+permissions+",\'"+calName+"\');";
 
     var res = await new Promise((resolve) =>
          {
             con.query(sql, function (err, result,fields) {
-                if (err) throw err;
+                if (err)
+                {
+                    //Return null and exit. Avoids infinite wait
+                    resolve();
+                }
                 resolve(result);
             });
          })
@@ -31,8 +36,9 @@ export default async function deleteCalendar(calID, userID)
     
         console.log('MySQL connection closed.');
       });
+
     return res;
 }
 
-//var temp = await deleteCalendar(5,"testname");
+//var temp = await addCalendar("testCal3","testname");
 //console.log(temp);

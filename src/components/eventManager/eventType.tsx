@@ -3,10 +3,10 @@ export type calEvent =
     eventID:number,
     calendarID:number,
     eventType:number,
-    name:String,
+    name:string,
     description:String,
     startTime:Date,
-    duration:String, //Stored as Time in database. Split at comma and perform individual additions to generate end time
+    duration:string, //Stored as Time in database. Split at colon and perform individual additions to generate end time
     repeatLength:number
 }
 
@@ -14,7 +14,7 @@ export type Calendar =
 {
     calendarID:number,
     permissions:number,
-    name:String,
+    name:string,
     visible:Boolean
 }
 
@@ -23,12 +23,12 @@ export type Flex =
     flexID:number,
     timeToComplete:number,
     deadline:Date,
-    name:String
+    name:string
 }
 export type Preferences =
 {
-    startPref:String,
-    endPref:String,
+    startPref:string,
+    endPref:string,
     dayPref:number,
     lengthPref:number,
     breakPref:number,
