@@ -30,7 +30,7 @@ export type Preferences =
     startPref:string,
     endPref:string,
     dayPref:number,
-    lengthPref:number,
-    breakPref:number,
+    lengthPref:string,
+    breakPref:string,
     daySessions:number
 }

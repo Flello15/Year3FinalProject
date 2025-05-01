@@ -1,8 +1,10 @@
+'use server'
 import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
 export default async function editPreferences(userID,startPref,endPref,dayPref,lengthPref,breakPref,daySessions)
 {
+    console.log("begin");
     var con = mysql.createConnection({
         host: "localhost",
         user: login[0],

@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react";
 import deleteUserEvent from "../eventManager/deleteUserEvent";
-import { Calendar, calEvent } from "../eventManager/eventType";
+import { Calendar, calEvent, Preferences } from "../eventManager/eventType";
 import Cookies from "universal-cookie";
 interface veProps
 {
@@ -9,14 +9,15 @@ interface veProps
     calendar:Calendar;
     pageExit:() => void;
 }
-export default function veiwEvent({event,calendar,pageExit}:veProps)
+export default function viewEvent({event,calendar,pageExit}:veProps)
 {
     const [edit,setEdit] = useState(false);
     const cookies = new Cookies(null, { path: "/" });
+    const preferences:Preferences = cookies.get("preferences");
     //function to delete the event
     const deleteEvent = async()=>
     {
-        await deleteUserEvent(event,cookies.get("events"),false);
+        await deleteUserEvent(cookies.get("username"),event,cookies.get("events"),calendar,preferences,false);
         pageExit();
     }
 

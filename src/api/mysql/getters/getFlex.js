@@ -1,7 +1,7 @@
 import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
-export default async function getFlex(userID)
+export default async function getFlex(flexID)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -14,8 +14,7 @@ export default async function getFlex(userID)
         console.log("Connected!");
     });
 
-    var sql = "SELECT * FROM calendar.flexevents WHERE userID=\'"+userID+"\'"
-    +" ORDER BY startTime DESC;";
+    var sql = "SELECT * FROM calendar.flexevents WHERE flexID=\'"+flexID+"\';";
 
     var res = await new Promise((resolve) =>
          {
@@ -33,8 +32,5 @@ export default async function getFlex(userID)
         console.log('MySQL connection closed.');
       });
 
-    return res;
+    return res[0];
 }
-
-//var temp = await getEvents(1);
-//console.log(temp[0]);

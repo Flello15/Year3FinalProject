@@ -38,5 +38,5 @@ export default async function editEvent(eventID,calendarID,eventType,startTime,d
     return res;
 }
 
-//var temp = await editEvent(3,1,0,"2025-04-27 12:00:00","1:00:00","testTitle","Written and edited by SQL!",0,1);
-//console.log(temp);
+//var temp = await editEvent(3,1,0,"2025-04-27 12:00:00","1:00:00","testTitle","Written and edited by SQL!",0,-1);
+//console.log(temp.insertId);

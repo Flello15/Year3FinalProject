@@ -1,8 +1,7 @@
-'use server'
 import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
-async function getPrefAr(userID)
+export default async function getEvents(eventID)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -15,7 +14,7 @@ async function getPrefAr(userID)
         console.log("Connected!");
     });
 
-    var sql = "SELECT startPref,endPref,dayPref,lengthPref,breakPref,daySessions FROM calendar.Users WHERE userID=\'"+userID+"\';";
+    var sql = "SELECT parentID FROM calendar.events WHERE eventID=\'"+eventID+"\';";
 
     var res = await new Promise((resolve) =>
          {
@@ -36,13 +35,5 @@ async function getPrefAr(userID)
     return res;
 }
 
-//Since only first element is relevant, function for only first value for convenience
-export default async function getPref(userID)
-{
-    var res = (await getPrefAr(userID));
-    return res[0];
-}
-
-//Example use. Don't forget await
-//var temp = await getUser("testname");
-//console.log(temp.userID);
+//var temp = await getEvents(1);
+//console.log(temp[0]);

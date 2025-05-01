@@ -2,26 +2,26 @@
 import { useState } from "react";
 import addUserCalendar from "../eventManager/addUserCalendar";
 import Cookies from "universal-cookie";
-import { Calendar, calEvent } from "../eventManager/eventType";
+import { Calendar, calEvent, Flex,Preferences } from "../eventManager/eventType";
 import getUserCalendars from "../eventManager/getUserCalendars";
 import getUserEvents from "../eventManager/getUserEvents";
 import addUserEvent from "../eventManager/addUserEvent";
+import buildFlex from "../eventManager/buildFlex";
 
 interface csProps
 {
     userID:string;
     calList:Calendar[];
+    preferences:Preferences;
     closeFunction: ()=>void;
     refreshFunction: ()=>void;
 }
-export default function EventAddPanel({userID,calList,closeFunction, refreshFunction}:csProps)
+export default function FlexAddPanel({userID,calList,preferences,closeFunction, refreshFunction}:csProps)
 {
     const [eventName,setName] = useState("");
     const [eventDay,setDay] = useState("");
-    const [eventDuration,setDuration] = useState("");
-    const [eventDescription,setDescription] = useState("");
+    const [eventDuration,setDuration] = useState(0);
     const [calId,setID] = useState(-1);
-    const [repeat, setRepeat] = useState(-1);
     //Determine which calendars can be added to
     const addables:Calendar[] = [];
     const shareRadio = [];
@@ -38,27 +38,24 @@ export default function EventAddPanel({userID,calList,closeFunction, refreshFunc
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        var eType = 0;
-        if(repeat != 0)
-        {
-            eType = 1;
-        }
         const date=createDate(eventDay);
 
         //create the event item
-        const newEvent:calEvent=
+        const newFlex:Flex=
         {
-            eventID:-1,
-            calendarID:addables[calId].calendarID,
+            flexID:-1,
             name:eventName,
-            eventType:eType,
-            startTime:date,
-            duration:(eventDuration+":00"),
-            description:eventDescription,
-            repeatLength:repeat
+            deadline:createDate(eventDay),
+            timeToComplete:eventDuration
         }
         const cookies = new Cookies(null, { path: "/" });
-        let res = await addUserEvent(newEvent,true);
+        const calEventsJS:calEvent[] = cookies.get("events");
+        const calEvents:calEvent[] = []
+        for(let i = 0; i < calEventsJS.length; i++)
+        {
+            calEvents.push(convertEvent(calEventsJS[i]))
+        }
+        let res = await buildFlex(userID,newFlex,preferences,calEvents,addables[calId]);
         //Update the stored cookie
         const newTable:calEvent[] = await getUserEvents(userID);
         cookies.set("events",JSON.stringify(newTable));
@@ -76,24 +73,12 @@ export default function EventAddPanel({userID,calList,closeFunction, refreshFunc
                         {shareRadio}
                     </span>
                 </label>
-                <label className="eventAddHeader">Date:
+                <label className="eventAddHeader">Deadline:
                     <input type="datetime-local" className="eventAddInput" value={eventDay} onChange={(e) => setDay(e.target.value)} required/><br/>
                 </label>
-                <label className="eventAddHeader">Duration:
-                    <input type="time" className="eventAddInput" value={eventDuration} 
-                    onChange={(e) => setDuration(e.target.value)} required/><br/>
-                </label>
-                <label className="eventAddHeader">Decscription:<br/>
-                    <textarea className="eventAddInput" rows={5}cols={40}form="eventAddForm" value={eventDescription}
-                    onChange={(e) => setDescription(e.target.value)}/><br/>
-                </label>
-                <label className="eventAddHeader">Repeat duration:<span className="radioItem">
-                <div>Never <input type="radio" value={0} name="repSelect" 
-                className="repSelect" key={"a"} onChange={(e) => setRepeat(+e.target.value)} required/></div>
-                <div>Weekly <input type="radio" value={1} name="repSelect" 
-                className="repSelect" key={"b"} onChange={(e) => setRepeat(+e.target.value)}/></div>
-                <div>Monthly <input type="radio" value={2} name="repSelect" 
-                className="repSelect" key={"c"} onChange={(e) => setRepeat(+e.target.value)}/></div></span>
+                <label className="eventAddHeader">Hours to complete:
+                    <input type="number" className="eventAddInput" value={eventDuration} 
+                    onChange={(e) => setDuration(+e.target.value)} required/><br/>
                 </label>
                 <input type="submit" value="add" id="eventAddSubmit"/><br/>
             </form></div>);
@@ -104,4 +89,21 @@ function createDate(date:string)
     var newDate = new Date(date);
     newDate.setMinutes(newDate.getMinutes()-newDate.getTimezoneOffset())//Offset from the local time
     return newDate;
+}
+
+function convertEvent(eventJSON: any)
+{
+    const event:calEvent =
+    {
+        eventID:eventJSON.eventID,
+        calendarID:eventJSON.calendarID,
+        eventType:eventJSON.eventType,
+        name:eventJSON.title,
+        description:eventJSON.description,
+        startTime:new Date(eventJSON.startTime),
+        duration:eventJSON.duration,
+        repeatLength:eventJSON.repeatLength
+    }
+
+    return event
 }

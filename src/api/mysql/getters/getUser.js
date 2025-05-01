@@ -39,6 +39,7 @@ async function getUserAr(userID)
 }
 
 //Since only first element is relevant, function for only first value for convenience
+//Future note- could have just kept in with main function
 export default async function getUser(userID)
 {
     var res = (await getUserAr(userID));
