@@ -3,6 +3,7 @@ import getUser from "@/api/mysql/getters/getUser";
 import { cookies } from 'next/headers'
 import getUserEvents from "../eventManager/getUserEvents";
 import getUserCalendars from "../eventManager/getUserCalendars";
+import getUserPreferences from "../eventManager/getUserPreferences";
 export default async function loginUser(username: string, pass: string)
 {
     let userInfo= await getUser(username);
@@ -25,9 +26,11 @@ export default async function loginUser(username: string, pass: string)
             //get user preferences, calendars and events
             const userEvents = (await getUserEvents(username));
             const calendars = await getUserCalendars(username);
+            const preferences = await getUserPreferences(username);
             cookieStore.set({name:"username",value:username});
             cookieStore.set({name:"events",value:JSON.stringify(userEvents)});
             cookieStore.set({name:"calendars",value:JSON.stringify(calendars)});
+            cookieStore.set({name:"preferences",value:JSON.stringify(preferences)});
             return username;//Return the valid username
         }
         else

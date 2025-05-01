@@ -10,7 +10,9 @@ type Duration=
 export default function buildFlex(flex:Flex, preferences:Preferences, eventList:calEvent[], calendar:Calendar)
 {
     const current = new Date();
+    //Determine what days currently have events
     const usedDates = generateUsedDates(eventList);
+    //Determine the number of days to complete a given task, and calculate the required sessions
     const daysRemaining = ((flex.deadline.getTime()-current.getTime())/(1000*60*60*24))-1;
     const requiredSessions = flex.timeToComplete/preferences.lengthPref;
     var sessionsPerDay = requiredSessions/daysRemaining;

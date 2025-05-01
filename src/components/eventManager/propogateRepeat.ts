@@ -1,14 +1,33 @@
 import addUserEvent from "./addUserEvent";
 import { calEvent } from "./eventType";
 
+//Assumes first event already in place
 export default function propogateRepeat(event:calEvent)
 {
-    const date = event.startTime;
-    let workingDate = new Date(date.getFullYear(),date.getMonth(),date.getDate());
-    //Loop for 90 days
-    while(workingDate.getTime()/(1000*24*60*60)-workingDate.getTime()/(1000*24*60*60) < 90)
+    //exit if an invalid range is used
+    if(event.repeatLength < 1 || event.repeatLength > 2)
     {
-        workingDate.setDate(workingDate.getDate()+event.repeatLength);
+        return;
+    }
+    const date = event.startTime;
+    //Loop for 15 events
+    for(let i = 1; i <= 5; i++)
+    {
+        var tempDate = new Date()
+        //Weekly
+        if(event.repeatLength == 1)
+        {
+            tempDate = new Date(date.getFullYear(),
+            date.getMonth(), date.getDate()+(7*i))}
+            tempDate.setHours(date.getHours());
+            tempDate.setMinutes(date.getMinutes());
+        //monthly
+        if(event.repeatLength == 2){
+            tempDate = new Date(date.getFullYear(),
+            date.getMonth()+i, date.getDate())
+            tempDate.setHours(date.getHours());
+            tempDate.setMinutes(date.getMinutes());
+        }
         var newEvent: calEvent=
         {
             calendarID:event.calendarID,
@@ -16,7 +35,7 @@ export default function propogateRepeat(event:calEvent)
             eventType:1,
             name:event.name,
             description:event.description,
-            startTime:workingDate,
+            startTime:tempDate,
             duration:event.duration,
             repeatLength:event.repeatLength
         }

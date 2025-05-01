@@ -15,8 +15,8 @@ export default function Home() {
     setVisTog(!visTog);
   }
   return (<>
-    <NavSide toggleVis={toggleVis}/>
-    <div id="layoutBody">
+      <NavSide toggleVis={toggleVis}/>
+      <div id="layoutBody">
       <LoginPanel />
       <MonthView />
     </div>

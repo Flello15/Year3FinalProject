@@ -4,7 +4,7 @@ export type calEvent =
     calendarID:number,
     eventType:number,
     name:string,
-    description:String,
+    description:string,
     startTime:Date,
     duration:string, //Stored as Time in database. Split at colon and perform individual additions to generate end time
     repeatLength:number

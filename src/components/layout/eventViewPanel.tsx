@@ -31,14 +31,13 @@ export default function veiwEvent({event,calendar,pageExit}:veProps)
     <div className="eventItem">Calendar: {calendar.name}</div>
     <div className="eventItem">Start time: {getTime(event.startTime)}</div>
     <div className="eventItem">End time: {getEnd(event.startTime, event.duration)}</div>
-    <div className="eventItem">Description: {event.description}</div>
-    {event.eventType==1?<div className="eventItem">Repeat: {event.repeatLength}</div>:<></>}
+    <div className="eventItem">Description: {getDesc(event.description)}</div>
+    {event.eventType==1?<div className="eventItem">Repeat: {getRepeatName(event.repeatLength)}</div>:<></>}
     <br/>
-    {(calendar.permissions)>=2?<><button onClick={setEditing} id="editButton">Edit</button><br/></>:<></>}
-    {(calendar.permissions)==3?<><button onClick={deleteEvent} id="deleteButton">Delete</button><br/></>:<></>}
+    {(calendar.permissions)>=3?<><button onClick={deleteEvent} id="deleteButton">Delete</button><br/></>:<></>}
     <button id="backButton" onClick={pageExit}>Back</button>
     </div>
-    const editMode = <div id="viewEvent">
+    /*const editMode = <div id="viewEvent">
     <div id="eventHeading">{event.name}</div>
     <div className="eventItem">Calendar: {calendar.name}</div>
     <div className="eventItem">Start time: {getTime(event.startTime)}</div>
@@ -46,19 +45,23 @@ export default function veiwEvent({event,calendar,pageExit}:veProps)
     <div className="eventItem">Description: {event.description}</div>
     {event.eventType==1?<div className="eventItem">Repeat: {event.repeatLength}</div>:<></>}
     <button id="backButton" onClick={setEditing}>Back</button>
-    </div>
+    </div>*/
     //Repeat only displayed for repeating events
     //1-Read. 2-Edit. 3-Delete
-    if(edit)
-    {
-        return editMode;
-    }
-    else
-    {
-        return viewMode;
-    }
+    return viewMode;
 }
 
+function getRepeatName(rep:number)
+{
+    if(rep == 0)return "None";
+    if(rep == 1)return "Weekly";
+    if(rep == 2)return "Monthly";
+}
+function getDesc(desc:string)
+{
+    if(desc == "") return "None";
+    return desc;
+}
 function getTime(date:Date)
 {
     const mins = date.getMinutes();

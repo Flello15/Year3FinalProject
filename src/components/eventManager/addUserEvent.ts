@@ -1,3 +1,4 @@
+'use server';
 import addEvent from "@/api/mysql/adders/addEvent";
 import {calEvent} from "./eventType";
 import propogateRepeat from "./propogateRepeat";
@@ -9,7 +10,7 @@ export default async function addUserEvent(event:calEvent, propogate:boolean)
     //Propogate the event
     if(event.eventType == 1 && propogate)
     {
-        propogateRepeat(event);
+        await propogateRepeat(event);
     }
 
 }

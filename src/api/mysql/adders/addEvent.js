@@ -14,8 +14,8 @@ export default async function addEvent(calendarID,eventType,startTime,duration,t
         console.log("Connected!");
     });
 
-    var sql = "INSERT INTO calendar.events (calendarID,eventType,startTime,duration,title,description,repeatLength,parentID)"+
-    "VALUES ("+calendarID+","+eventType+",\'"+startTime+"\',\'"+duration+"\',\'"+title+"\',\'"+description+"\',"+repeatLength+","+parentID+");";
+    var sql = "INSERT INTO calendar.events (calendarID,eventType,startTime,duration,title,description,repeatLength)"+
+    "VALUES ("+calendarID+","+eventType+",\'"+startTime+"\',\'"+duration+"\',\'"+title+"\',\'"+description+"\',"+repeatLength+");";
 
     var res = await new Promise((resolve) =>
          {

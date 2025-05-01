@@ -1,7 +1,10 @@
+/**
+ * Get user from a given ID
+ */
 import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
-export default async function getEvents(calendarID)
+async function getPrefAr(userID)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -14,8 +17,7 @@ export default async function getEvents(calendarID)
         console.log("Connected!");
     });
 
-    var sql = "SELECT * FROM calendar.events WHERE calendarID=\'"+calendarID+"\'"
-    +" ORDER BY startTime ASC;";
+    var sql = "SELECT startPref,endPref,dayPref,lengthPref,breakPref,daySessions FROM calendar.Users WHERE userID=\'"+userID+"\';";
 
     var res = await new Promise((resolve) =>
          {
@@ -36,5 +38,13 @@ export default async function getEvents(calendarID)
     return res;
 }
 
-//var temp = await getEvents(1);
-//console.log(temp[0]);
+//Since only first element is relevant, function for only first value for convenience
+export default async function getPref(userID)
+{
+    var res = (await getPrefAr(userID));
+    return res[0];
+}
+
+//Example use. Don't forget await
+//var temp = await getUser("testname");
+//console.log(temp.userID);

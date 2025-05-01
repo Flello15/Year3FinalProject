@@ -41,13 +41,12 @@ li{
 .ItemBoxBuffer
 {
   background-color: #171717;
-  color: #ffffff;
+  color: #ffffff55;
   border-width: 3px;
   border-color: purple;
   display: inline-block;
   margin: 0;
   padding: 0;
-  opacity: 0.3;
   overflow: scroll;
 }
 .CalDate
@@ -65,12 +64,20 @@ li{
   height: 500px;
 }
 
-#loginPanel{
+#loginTitle, #eventAddTitle, #calTitle
+{
+  color: white;
+  text-align: center;
+}
+#loginPanel, #eventAddPanel, #calPanel
+{
   position: absolute;
   top: 4em;
   left: 10em;
   min-width: 15em;
   min-height: 15em;
+  max-height: 15em;
+  padding-left: 0.2em;
   background-color: black;
   text-align: center;
   font-size: 1.8em;
@@ -79,14 +86,21 @@ li{
   z-index: 1;
 }
 
-.loginInput
+.loginHeader, .eventAddHeader, .calHeader
 {
+  font-size: 0.7em;
+  color: white;
+}
+.loginInput, .eventAddInput, .calInput
+{
+  font-size: 0.7em;
   text-align: center;
   color: black;
   margin: 0.5em;
+  text-align: left;
 }
 
-#loginSubmit
+#loginSubmit, #eventAddSubmit, #calSubmit
 {
   padding: 0.2em;
   margin: 1em;
@@ -94,9 +108,10 @@ li{
   color: white;
   border-radius: 0.5em;
   min-width: 3em;
+  text-align: center;
 }
 
-#loginSubmit:hover
+#loginSubmit:hover, #eventAddSubmit:hover, #calSubmit:hover
 {
   cursor: pointer;
   background-color: #006000;
@@ -140,7 +155,7 @@ li{
 .monthButton
 {
   font-size: 3em;
-  padding-left: 1em;
+  margin-left: 1em;
 }
 
 #viewEvent
@@ -168,4 +183,22 @@ li{
 {
   padding-left: 0.5em;
   font-weight: bold;
+}
+
+#calShare, #calAdd, #eventAdd
+{
+  margin-top: 0.2em;
+  color: blue;
+}
+
+.radioItem
+{
+  margin: 0.1em;
+  padding: 0.1em;
+  font-size: 0.7em;
+}
+
+.calSelect, .repSelect
+{
+  padding-left: 2em;
 }

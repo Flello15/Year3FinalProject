@@ -4,7 +4,7 @@ import getCalendars from "@/api/mysql/getters/getCalendars";
 import getEvents from "@/api/mysql/getters/getEvents";
 import { Calendar, calEvent } from "./eventType";
 
-export default async function getUserEvents(userID:String)
+export default async function getUserEvents(userID:string)
 {
     //Get all calendars associated with the user
     const calArr = await getUserCalendars(userID);

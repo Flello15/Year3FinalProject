@@ -2,7 +2,7 @@
 import getCalendars from "@/api/mysql/getters/getCalendars";
 import { Calendar } from "./eventType";
 
-export default async function getUserCalendars(userID:String)
+export default async function getUserCalendars(userID:string)
 {
     //Get JSON response
     var calRes = await getCalendars(userID)
