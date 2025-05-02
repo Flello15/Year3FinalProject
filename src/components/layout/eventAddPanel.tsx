@@ -58,7 +58,7 @@ export default function EventAddPanel({userID,calList,closeFunction, refreshFunc
             repeatLength:repeat
         }
         const cookies = new Cookies(null, { path: "/" });
-        let res = await addUserEvent(newEvent,true);
+        let res = await addUserEvent(newEvent,true,null);
         //Update the stored cookie
         const newTable:calEvent[] = await getUserEvents(userID);
         cookies.set("events",JSON.stringify(newTable));

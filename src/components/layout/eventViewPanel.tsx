@@ -20,7 +20,12 @@ export default function viewEvent({event,calendar,pageExit}:veProps)
         await deleteUserEvent(cookies.get("username"),event,cookies.get("events"),calendar,preferences,false);
         pageExit();
     }
-
+    const hardDeleteEvent = async()=>
+    {
+        await deleteUserEvent(cookies.get("username"),event,cookies.get("events"),calendar,preferences,true);
+        pageExit();
+    }
+    
     //function to set editing
     function setEditing()
     {
@@ -36,6 +41,7 @@ export default function viewEvent({event,calendar,pageExit}:veProps)
     {event.eventType==1?<div className="eventItem">Repeat: {getRepeatName(event.repeatLength)}</div>:<></>}
     <br/>
     {(calendar.permissions)>=3?<><button onClick={deleteEvent} id="deleteButton">Delete</button><br/></>:<></>}
+    {event.eventType==2?<><button onClick={hardDeleteEvent} id="deleteButton">Hard delete</button><br/></>:<></>}
     <button id="backButton" onClick={pageExit}>Back</button>
     </div>
     /*const editMode = <div id="viewEvent">

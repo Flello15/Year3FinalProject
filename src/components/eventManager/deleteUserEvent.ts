@@ -5,6 +5,7 @@ import getParent from "@/api/mysql/getters/getParent";
 import {Calendar, calEvent, Flex, Preferences} from "./eventType";
 import { cookies } from "next/headers";
 import { partialBuild } from "./buildFlex";
+import getUserEvents from "./getUserEvents";
 
 export default async function deleteCalEvent(userID:string, event:calEvent, eventList:calEvent[], calendar:Calendar,
      preferences:Preferences,destroyFlex:boolean)
@@ -15,9 +16,9 @@ export default async function deleteCalEvent(userID:string, event:calEvent, even
     {
         //Call alter flex with the duration
         const parent = await getParent(event.eventID);
-        if(typeof(parent) == typeof(1))//Ignore if no parent
+        if(!isNaN(parent[0].parentID))//Ignore if no parent
         {
-            const flexRes = await getFlex(parent);
+            const flexRes = await getFlex(parent[0].parentID);
             const flex:Flex=
             {
                 flexID:flexRes.flexID,
@@ -25,7 +26,7 @@ export default async function deleteCalEvent(userID:string, event:calEvent, even
                 deadline:new Date(flexRes.deadline),
                 name:flexRes.name
             }
-            partialBuild(flex,1,eventList,preferences,calendar);
+            await partialBuild(flex,1,eventList,preferences,calendar);
         }
     }
 
@@ -34,12 +35,11 @@ export default async function deleteCalEvent(userID:string, event:calEvent, even
 
     //delete the event from the event array, and update the cookies
     const eventIndex = getIndex(event,eventList);
-    if(eventIndex > -1)
-    {
-        eventList.splice(eventIndex,1);
-        cookieStore.set({name:"events",value:JSON.stringify(eventList)});
-    }
-    return eventList;
+
+    const newList = await getUserEvents(userID);
+    cookieStore.set({name:"events",value:JSON.stringify(newList)});
+    
+    return newList;
 }
 
 function getIndex(event:calEvent, eventList:calEvent[])

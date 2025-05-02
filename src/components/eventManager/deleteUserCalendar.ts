@@ -16,5 +16,6 @@ export default async function deleteUserCalendar(calendar:Calendar, eventList:ca
                 eventList.splice(i,1);
             }
         }
+        
         return eventList;
 }
