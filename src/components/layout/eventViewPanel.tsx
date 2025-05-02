@@ -34,11 +34,11 @@ export default function viewEvent({event,calendar,pageExit}:veProps)
     //Variables holding the current display mode
     const viewMode = <div id="viewEvent">
     <div id="eventHeading">{event.name}</div>
-    <div className="eventItem">Calendar: {calendar.name}</div>
-    <div className="eventItem">Start time: {getTime(event.startTime)}</div>
-    <div className="eventItem">End time: {getEnd(event.startTime, event.duration)}</div>
-    <div className="eventItem">Description: {getDesc(event.description)}</div>
-    {event.eventType==1?<div className="eventItem">Repeat: {getRepeatName(event.repeatLength)}</div>:<></>}
+    <div className="eventViewItem">Calendar: {calendar.name}</div>
+    <div className="eventViewItem">Start time: {getTime(event.startTime)}</div>
+    <div className="eventViewItem">End time: {getEnd(event.startTime, event.duration)}</div>
+    <div className="eventViewItem">Description: {getDesc(event.description)}</div>
+    {event.eventType==1?<div className="eventViewItem">Repeat: {getRepeatName(event.repeatLength)}</div>:<></>}
     <br/>
     {(calendar.permissions)>=3?<><button onClick={deleteEvent} id="deleteButton">Delete</button><br/></>:<></>}
     {event.eventType==2?<><button onClick={hardDeleteEvent} id="deleteButton">Hard delete</button><br/></>:<></>}

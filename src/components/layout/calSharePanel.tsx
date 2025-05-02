@@ -12,7 +12,7 @@ export default function CalSharePanel({calList,closeFunction}:csProps)
 {
     const [sharID,setID] = useState(-1);
     const [userID,setUser] = useState("");
-    const [perm,setPerm] = useState("");
+    const [perm,setPerm] = useState(0);
 
     //Determine which calendars are shareable
     const sharables:Calendar[] = [];
@@ -23,8 +23,8 @@ export default function CalSharePanel({calList,closeFunction}:csProps)
         if(calList[i].permissions >= 3)
         {
             sharables.push(calList[i]);
-            shareRadio.push(<div>{calList[i].name} <input type="radio" value={i} name="calSelect" 
-                className="calSelect" key={i} onChange={(e) => setID(+e.target.value)}required/></div>);
+            shareRadio.push(<div  key={i}>{calList[i].name} <input type="radio" value={i} name="calSelect" 
+                className="calSelect" onChange={(e) => setID(+e.target.value)}required/></div>);
         }
     }
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
@@ -33,7 +33,7 @@ export default function CalSharePanel({calList,closeFunction}:csProps)
         const calID = sharables[sharID].calendarID;
         const calName = sharables[sharID].name;
         //Check valid permission input
-        if(+perm >=1 && +perm <=3)
+        if(perm >=1 && perm <=3)
         {
             let res = await shareCalendar(calID,userID,perm,calName);
         }
@@ -51,7 +51,7 @@ export default function CalSharePanel({calList,closeFunction}:csProps)
                     <input type="text" className="calInput" value={userID} onChange={(e) => setUser(e.target.value)} required/><br/>
                 </label>
                 <label className="calHeader">Permission level (1-3):
-                    <input type="text" className="calInput" value={perm} onChange={(e) => setPerm(e.target.value)} required/><br/>
+                    <input type="number" className="calInput" value={perm} onChange={(e) => setPerm(+e.target.value)} required/><br/>
                 </label>
                 <input type="submit" value="share" id="calSubmit"/><br/>
             </form></div>);

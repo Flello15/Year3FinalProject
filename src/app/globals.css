@@ -75,8 +75,7 @@ li{
   top: 4em;
   left: 10em;
   min-width: 15em;
-  min-height: 15em;
-  max-height: 15em;
+  max-height: 18em;
   padding-left: 0.2em;
   background-color: black;
   text-align: center;
@@ -84,8 +83,13 @@ li{
   border-radius: 0.5em;
   overflow: scroll;
   z-index: 1;
+  padding-bottom: 1em;
 }
 
+#calPanel
+{
+  min-height: none;
+}
 .loginHeader, .eventAddHeader, .calHeader
 {
   font-size: 0.7em;
@@ -100,6 +104,10 @@ li{
   text-align: left;
 }
 
+.loginInput
+{
+  font-size: 1em;
+}
 #loginSubmit, #eventAddSubmit, #calSubmit
 {
   padding: 0.2em;
@@ -123,8 +131,7 @@ li{
   position: fixed;
   height: 100vh;
   width: 10em;
-  background-color: white;
-  color: red;
+  background-color: #222222;
 }
 
 #layoutBody
@@ -147,6 +154,13 @@ li{
   display: block;
 }
 
+.eventViewItem
+{
+  font-size: 0.6em;
+  padding-top: 0.3em;
+  padding-left: 0.5em;
+  display: block;
+}
 #monthHeading
 {
   font-size: 3em;
@@ -164,11 +178,10 @@ li{
   top: 10vh;
   left: 15vw;
   width: 25vw;
-  height: 50vh;
   padding: 1em;
   border-radius: 2em;
   font-size: 1.2em;
-  background-color: gray;
+  background-color: black;
   overflow-y: scroll;
 }
 
@@ -176,19 +189,21 @@ li{
 {
   padding-top: 5vh;
   padding-left: 1vw;
-  color: black;
+  color: white;
 }
 
 .deleteCal
 {
   padding-left: 0.5em;
   font-weight: bold;
+  color: gray;
 }
 
 #calShare, #calAdd, #eventAdd
 {
   margin-top: 0.2em;
-  color: blue;
+  margin-left: 1em;
+  color: #A000A0;
 }
 
 .radioItem
@@ -201,4 +216,21 @@ li{
 .calSelect, .repSelect
 {
   padding-left: 2em;
+}
+
+#logoutButton
+{
+  color: white;
+  margin-top:0.7em;
+  margin-left: 2em;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  background-color: #008000;
+}
+
+#logoutButton:hover
+{
+  background-color: #006000;
+  color: #dddddd;
 }
