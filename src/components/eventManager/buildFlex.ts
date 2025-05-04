@@ -11,7 +11,10 @@ type Duration=
 
 export default async function buildFlex(userID:string, flex:Flex, preferences:Preferences, eventList:calEvent[], calendar:Calendar)
 {
+    
     const current = new Date();
+    //Do not create an event if the deadline has already passed
+    if(current.getTime() > flex.deadline.getTime()) return;
     //Determine what days currently have events
     const usedDates = generateUsedDates(eventList);
     //Determine the number of days to complete a given task, and calculate the required sessions
