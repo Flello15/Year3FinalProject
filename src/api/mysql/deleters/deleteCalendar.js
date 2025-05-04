@@ -1,7 +1,7 @@
 import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
-export default async function deleteCalendar(calID, userID)
+export default async function deleteCalendar(calID)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -14,7 +14,7 @@ export default async function deleteCalendar(calID, userID)
         console.log("Connected!");
     });
 
-    var sql = "DELETE FROM calendar.calendars where calendarID=\'"+calID+"\' AND user=\'"+userID+"\';";
+    var sql = "DELETE FROM calendar.calendars where calendarID=\'"+calID+"\';";
 
     var res = await new Promise((resolve) =>
          {

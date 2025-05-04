@@ -22,11 +22,10 @@ export default function CalListItem({calendar,calArr, toggleVis}:clProps)
     const deleteCalendar = async()=>
     {
         //Only someone with full permissions can delete a calendar
-        if(calendar.permissions==7)
+        if(calendar.permissions>=3)
         {
             const eventList = cookies.get("events");
-            const userID = cookies.get("username");
-            const remainder = await deleteUserCalendar(calendar,eventList,userID);
+            const remainder = await deleteUserCalendar(calendar,eventList);
             //Remove the calendar and events from the cookies
             const index = getIndex(calendar,calArr);
             calArr.splice(index,1);
@@ -35,7 +34,13 @@ export default function CalListItem({calendar,calArr, toggleVis}:clProps)
             toggleVis();
         }
     }
-    const deleteButton = <button className="deleteCal" onClick={deleteCalendar}>X</button>
+
+    //Do not show the delete button if the user does not have full permissions
+    var deleteButton = <button className="deleteCal" onClick={deleteCalendar}>X</button>
+    if(calendar.permissions <3)
+    {
+        deleteButton = <></>
+    }
 
     return(<><button onClick={toggleVisibile} className="calItem">{calendar.name}</button>{deleteButton}<br/></>)
 }
