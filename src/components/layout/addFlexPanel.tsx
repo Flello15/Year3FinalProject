@@ -28,7 +28,7 @@ export default function FlexAddPanel({userID,calList,preferences,closeFunction, 
     for(let i = 0; i < calList.length; i++)
     {
         //Check correct permissions
-        if(calList[i].permissions >= 3)
+        if(calList[i].permissions >= 2)
         {
             addables.push(calList[i]);
             shareRadio.push(<div key={i}>{calList[i].name} <input type="radio" value={i} name="calSelect" 

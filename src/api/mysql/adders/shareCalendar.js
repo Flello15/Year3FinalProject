@@ -2,7 +2,7 @@
 import {login} from '../SQLLogin.js';
 import mysql from "mysql";
 //Function to return full array
-export default async function addCalendar(calID, userID,permissions,calName)
+export default async function shareCalendar(calID, userID,permissions,calName)
 {
     var con = mysql.createConnection({
         host: "localhost",
@@ -39,6 +39,3 @@ export default async function addCalendar(calID, userID,permissions,calName)
 
     return res;
 }
-
-//var temp = await addCalendar("testCal3","testname");
-//console.log(temp);

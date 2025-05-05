@@ -4,6 +4,4 @@ import { Calendar } from "./eventType";
 export default async function addUserCalendar(userID:string, calName:string, permissions:number)
 {
     const res = await addCalendar(calName,userID);
-    const cal:Calendar = {calendarID:res.insertId, permissions:permissions, name:calName,visible:true}
-    return cal;
 }
